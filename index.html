@@ -61,11 +61,68 @@
     </div>
   </div>
 
+  <!-- Auth Modal -->
+  <div class="popup-modal" id="authModal">
+    <div class="popup-content auth-popup">
+      <button class="close-popup" id="closeAuthPopup" aria-label="Close Auth">&times;</button>
+
+      <div class="auth-card-inner">
+        <div class="auth-header-mini">
+          <h2 id="modalAuthTitle">Sign In</h2>
+          <p id="modalAuthSubtitle">Use <strong>test@demaryx.com</strong> / <strong>123</strong> to test.</p>
+        </div>
+
+        <!-- Login Form -->
+        <form id="modalLoginForm" class="auth-form-mini">
+          <div class="form-group">
+            <label>Email / Phone</label>
+            <input type="text" id="modalLoginEmail" placeholder="test@demaryx.com" required>
+          </div>
+          <div class="form-group">
+            <label>Password</label>
+            <input type="password" id="modalLoginPassword" placeholder="123" required>
+          </div>
+          <button type="submit" class="btn btn-full" style="margin-top: 15px; width: 100%;">Access Account</button>
+        </form>
+
+        <!-- Register Form -->
+        <form id="modalRegisterForm" class="auth-form-mini hide">
+          <div id="modalRegStep1">
+            <div class="form-group">
+              <label>Full Name</label>
+              <input type="text" id="modalRegName" placeholder="Your Name" required>
+            </div>
+            <div class="form-group">
+              <label>Email Address</label>
+              <input type="email" id="modalRegEmail" placeholder="email@example.com" required>
+            </div>
+            <button type="button" id="modalSendOtpBtn" class="btn btn-full" style="margin-top: 15px; width: 100%;">Get
+              Security Code</button>
+          </div>
+          <div id="modalRegStep2" class="hide">
+            <p class="otp-msg-mini">Enter the 4-digit code sent to your email.</p>
+            <div class="otp-container-mini">
+              <input type="text" maxlength="1" class="otp-input-mini">
+              <input type="text" maxlength="1" class="otp-input-mini">
+              <input type="text" maxlength="1" class="otp-input-mini">
+              <input type="text" maxlength="1" class="otp-input-mini">
+            </div>
+            <button type="submit" class="btn btn-full" style="width: 100%;">Verify & Join</button>
+          </div>
+        </form>
+
+        <div class="auth-footer-mini">
+          <p id="modalToggleText">New member? <a href="#" id="modalToggleAuth">Create Account</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Order Modal -->
   <div class="popup-modal" id="orderModal">
     <div class="popup-content order-popup-v2">
       <button class="close-popup" id="closeOrderPopup" aria-label="Close Order">&times;</button>
-      
+
       <div class="order-main-wrap">
         <!-- Left: Image Section -->
         <div class="order-image-side">
@@ -77,10 +134,12 @@
           <div class="order-header">
             <h2 id="selectedProduct">Product Name</h2>
             <div class="order-price">
-              <span class="old-price">Rs. 850</span>
-              <span class="new-price">Rs. 723</span>
+              <span class="old-price" id="orderOldPrice">Rs. 850</span>
+              <span class="new-price" id="orderNewPrice">Rs. 723</span>
             </div>
-            <p class="order-desc">Premium handcrafted treats made with signature Kyesthensia ingredients for a perfect experience.</p>
+            <p class="order-desc" id="orderDesc">Premium handcrafted treats made with signature Kyesthensia ingredients
+              for a perfect
+              experience.</p>
           </div>
 
           <form id="orderForm" class="order-form-v2">
@@ -122,6 +181,19 @@
                 </label>
               </div>
             </div>
+
+            <!-- Coupon Code Section -->
+            <div class="coupon-section">
+              <div class="selection-header">
+                <span>Have a Coupon?</span>
+                <span class="tag-required">Save More</span>
+              </div>
+              <div class="coupon-input-wrap">
+                <input type="text" id="couponCode" placeholder="Enter code (e.g. CAFE20)" />
+                <button type="button" id="applyCouponBtn">Apply</button>
+              </div>
+              <p id="couponMsg" class="coupon-msg"></p>
+            </div>
           </form>
         </div>
       </div>
@@ -141,41 +213,46 @@
     </div>
   </div>
 
+  <nav class="navbar">
+    <div class="container nav-content">
+      <a href="#home" class="logo-link">
+        <img src="images/logo2.png" alt="Kyesthensia Logo" class="nav-logo" />
+      </a>
+      <div class="menu-toggle" id="mobileMenuToggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#products">Products</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li class="cart-trigger" id="cartTrigger">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="9" cy="21" r="1"></circle>
+            <circle cx="20" cy="21" r="1"></circle>
+            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+          </svg>
+          <span class="cart-count" id="cartCount">0</span>
+        </li>
+        <li class="user-trigger" id="userTrigger">
+          <a href="javascript:void(0)" aria-label="Login or Register">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
   <header class="hero" id="home">
     <div class="hero-overlay">
-      <nav class="navbar container">
-        <a href="#home" class="logo-link">
-          <img src="images/logo2.png" alt="Kyesthensia Logo" class="nav-logo" />
-        </a>
-        <div class="menu-toggle" id="mobileMenuToggle">
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
-        <ul class="nav-links" id="navLinks">
-          <li><a href="#home">Home</a></li>
-          <li><a href="#products">Products</a></li>
-          <li><a href="#gallery">Gallery</a></li>
-          <li><a href="#contact">Contact</a></li>
-          <li class="cart-trigger" id="cartTrigger">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="9" cy="21" r="1"></circle>
-              <circle cx="20" cy="21" r="1"></circle>
-              <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-            </svg>
-            <span class="cart-count" id="cartCount">0</span>
-          </li>
-          <li class="user-trigger">
-            <a href="auth.html" aria-label="Login or Register">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                <circle cx="12" cy="7" r="4"></circle>
-              </svg>
-            </a>
-          </li>
-        </ul>
-      </nav>
-
       <div class="hero-content container">
         <p class="tag">Delicious Cafe</p>
         <h2>Sweet Treats, Perfect Eats</h2>
@@ -192,73 +269,136 @@
   </header>
 
   <main>
+    <section id="about" class="section about-section reveal">
+      <div class="container">
+        <div class="about-glass-card">
+          <div class="about-main-info">
+            <div class="about-branding">
+              <p class="tag-gold" style="margin-bottom: 10px;">EST. 2014</p>
+              <h2 class="serif-title">The Kyesthensia Legacy</h2>
+              <p class="about-lead">
+                Kyesthensia Cafe delivers a high-end cafe experience with modern service,
+                dine-in comfort, and handcrafted products.
+              </p>
+            </div>
+            <div class="about-details-grid">
+              <div class="detail-item">
+                <div class="detail-icon-wrap">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 16 14"></polyline>
+                  </svg>
+                </div>
+                <div>
+                  <strong>Open Daily</strong>
+                  <p>7:00 AM - 10:00 PM</p>
+                </div>
+              </div>
+
+              <div class="detail-item">
+                <div class="detail-icon-wrap">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                  </svg>
+                </div>
+                <div>
+                  <strong>Service</strong>
+                  <p>Dine-in, Takeaway, Delivery</p>
+                </div>
+              </div>
+              <div class="detail-item">
+                <div class="detail-icon-wrap">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                    <circle cx="12" cy="10" r="3"></circle>
+                  </svg>
+                </div>
+                <div>
+                  <strong>Address</strong>
+                  <p>123 Coffee Street, Your City</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section id="deals" class="section reveal">
       <div class="container">
-        <!-- New Arrival Banner -->
-        <div class="new-arrival-banner">
-          <div class="banner-content">
-            <svg class="banner-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M12 2l4.5 9h-9l4.5-9zM12 11v11M8 22h8"></path>
-            </svg>
-            <h2>NEW ARRIVAL</h2>
-          </div>
+        <!-- Premium New Arrival Header -->
+        <div class="collection-header">
+          <span class="tag-gold">Exclusive Release</span>
+          <h2 class="section-title-premium">NEW ARRIVALS</h2>
+          <div class="title-underline"></div>
         </div>
 
         <div class="horizontal-product-grid">
-          <article class="h-product-card">
-            <div class="h-card-img">
+          <article class="h-product-card" data-price="690" data-old-price="850"
+            data-desc="Crispy, spicy muffins injected with flavorful chocolate marinade, baked to perfection.">
+            <div class="h-card-img order-trigger">
               <img src="images/muffins iamges 2.jpg" alt="Signature Muffin" />
             </div>
             <div class="h-card-info">
               <h4>Signature Choco Injected Muffin</h4>
               <p>Crispy, spicy nuggets infused with flavorful marinade, fried to perfection.</p>
-              <button class="h-card-price-btn">Rs. 690</button>
+              <button class="h-card-price-btn order-trigger">Rs. 690</button>
             </div>
           </article>
-          <article class="h-product-card">
-            <div class="h-card-img">
+          <article class="h-product-card" data-price="750" data-old-price="950"
+            data-desc="Creamy injected tart pieces made with premium custard and crispy crust.">
+            <div class="h-card-img order-trigger">
               <img src="images/icecream.jpg" alt="Creamy Tart" />
             </div>
             <div class="h-card-info">
               <h4>Creamy Injected Tart (5 Pcs)</h4>
               <p>Crispy, spicy nuggets infused with flavorful marinade, fried to perfection.</p>
-              <button class="h-card-price-btn">Rs. 750</button>
+              <button class="h-card-price-btn order-trigger">Rs. 750</button>
             </div>
           </article>
         </div>
 
         <h3 class="center-title" style="margin-top: 60px;">Weekly Deals</h3>
         <div class="deals-scroller">
-          <div class="deal-card">
-            <img src="images/poster-1.jpg" alt="Deal 1" />
+          <div class="deal-card order-trigger" data-price="550" data-old-price="1100"
+            data-desc="Exclusive Morning Freshness deal: Buy 1 signature coffee and get a fresh muffin absolutely free.">
+            <img src="images/poster-1.jpg" alt="Morning Freshness" />
             <div class="deal-info">
               <h4>Morning Freshness</h4>
               <p>Buy 1 Coffee get 1 Muffin Free!</p>
               <span class="deal-tag">Ends Today</span>
+              <button class="details-btn order-trigger" style="margin-top: 10px; width: 100%;">Order Deal</button>
             </div>
           </div>
-          <div class="deal-card">
-            <img src="images/poster 2.jpg" alt="Deal 2" />
+          <div class="deal-card order-trigger" data-price="800" data-old-price="1600"
+            data-desc="Limited time Pastry Party: Enjoy a 50% discount on all our premium tarts every evening after 8 PM.">
+            <img src="images/poster 2.jpg" alt="Pastry Party" />
             <div class="deal-info">
               <h4>Pastry Party</h4>
               <p>50% Off on all Tarts after 8PM</p>
               <span class="deal-tag">Weekend Only</span>
+              <button class="details-btn order-trigger" style="margin-top: 10px; width: 100%;">Order Deal</button>
             </div>
           </div>
-          <div class="deal-card">
-            <img src="images/poster 3.jpg" alt="Deal 3" />
+          <div class="deal-card order-trigger" data-price="450" data-old-price="900"
+            data-desc="Exclusive Loyalty Perk: Earn double points on all Espresso shots this week.">
+            <img src="images/poster 3.jpg" alt="Loyalty Perk" />
             <div class="deal-info">
               <h4>Loyalty Perk</h4>
               <p>Double points on all Espresso shots</p>
               <span class="deal-tag">Exclusive</span>
+              <button class="details-btn order-trigger" style="margin-top: 10px; width: 100%;">Order Deal</button>
             </div>
           </div>
-          <div class="deal-card">
-            <img src="images/poster-4.jpg" alt="Deal 4" />
+          <div class="deal-card order-trigger" data-price="350" data-old-price="700"
+            data-desc="Sweet Treat special: Receive a free artisan cookie with every purchase of a large handcrafted drink.">
+            <img src="images/poster-4.jpg" alt="Sweet Treat" />
             <div class="deal-info">
               <h4>Sweet Treat</h4>
               <p>Free cookie with any large drink</p>
               <span class="deal-tag">New</span>
+              <button class="details-btn order-trigger" style="margin-top: 10px; width: 100%;">Order Deal</button>
             </div>
           </div>
         </div>
@@ -269,111 +409,129 @@
       <div class="container">
         <h3 class="center-title">Top Products</h3>
         <div class="product-grid">
-          <article class="product-card">
-            <a href="product.html?id=product-1" class="product-link">
+          <!-- Card 1 -->
+          <article class="product-card" data-price="750" data-old-price="850"
+            data-desc="Freshly baked whole grain bread with balanced texture and rich taste.">
+            <div class="product-img-wrap order-trigger">
               <img src="images/burger.jpg" alt="Whole Grain Bread" loading="lazy" />
-            </a>
+            </div>
             <div class="product-meta">
               <h4>Whole Grain Bread</h4>
               <div class="product-row">
-                <span>$40</span>
-                <a href="product.html?id=product-1" class="details-btn">View Details</a>
+                <span>Rs. 750</span>
+                <button class="details-btn order-trigger">Order Now</button>
               </div>
             </div>
           </article>
-          <article class="product-card">
-            <a href="product.html?id=product-2" class="product-link">
+          <!-- Card 2 -->
+          <article class="product-card" data-price="890" data-old-price="1100"
+            data-desc="Light and creamy fruit tart made with seasonal toppings and crisp golden crust.">
+            <div class="product-img-wrap order-trigger">
               <img src="images/icecream.jpg" alt="Fresh Fruit Tart" loading="lazy" />
-            </a>
+            </div>
             <div class="product-meta">
               <h4>Fresh Fruit Tart</h4>
               <div class="product-row">
-                <span>$40</span>
-                <a href="product.html?id=product-2" class="details-btn">View Details</a>
+                <span>Rs. 890</span>
+                <button class="details-btn order-trigger">Order Now</button>
               </div>
             </div>
           </article>
-          <article class="product-card">
-            <a href="product.html?id=product-3" class="product-link">
+          <!-- Card 3 -->
+          <article class="product-card" data-price="620" data-old-price="750"
+            data-desc="Classic French baguette with crispy crust and soft interior.">
+            <div class="product-img-wrap order-trigger">
               <img src="images/pasta.jpg" alt="French Baguette" loading="lazy" />
-            </a>
+            </div>
             <div class="product-meta">
               <h4>French Baguette</h4>
               <div class="product-row">
-                <span>$40</span>
-                <a href="product.html?id=product-3" class="details-btn">View Details</a>
+                <span>Rs. 620</span>
+                <button class="details-btn order-trigger">Order Now</button>
               </div>
             </div>
           </article>
-          <article class="product-card">
-            <a href="product.html?id=product-4" class="product-link">
+          <!-- Card 4 -->
+          <article class="product-card" data-price="1250" data-old-price="1500"
+            data-desc="Soft almond cake with buttery notes and a premium bakery finish.">
+            <div class="product-img-wrap order-trigger">
               <img src="images/muffin2.jpg" alt="Almond Cake" loading="lazy" />
-            </a>
+            </div>
             <div class="product-meta">
               <h4>Almond Cake</h4>
               <div class="product-row">
-                <span>$40</span>
-                <a href="product.html?id=product-4" class="details-btn">View Details</a>
+                <span>Rs. 1250</span>
+                <button class="details-btn order-trigger">Order Now</button>
               </div>
             </div>
           </article>
-          <article class="product-card">
-            <a href="product.html?id=product-5" class="product-link">
+          <!-- Card 5 -->
+          <article class="product-card" data-price="950" data-old-price="1200"
+            data-desc="Golden honey pie made with smooth layers and aromatic filling.">
+            <div class="product-img-wrap order-trigger">
               <img src="images/cookies.jpg" alt="Honey Pie" loading="lazy" />
-            </a>
+            </div>
             <div class="product-meta">
               <h4>Honey Pie</h4>
               <div class="product-row">
-                <span>$40</span>
-                <a href="product.html?id=product-5" class="details-btn">View Details</a>
+                <span>Rs. 950</span>
+                <button class="details-btn order-trigger">Order Now</button>
               </div>
             </div>
           </article>
-          <article class="product-card">
-            <a href="product.html?id=product-6" class="product-link">
+          <!-- Card 6 -->
+          <article class="product-card" data-price="450" data-old-price="550"
+            data-desc="Soft mini bun ideal for quick snacks with tea or coffee pairings.">
+            <div class="product-img-wrap order-trigger">
               <img src="images/donts.jpg" alt="Mini Bun" loading="lazy" />
-            </a>
+            </div>
             <div class="product-meta">
               <h4>Mini Bun</h4>
               <div class="product-row">
-                <span>$40</span>
-                <a href="product.html?id=product-6" class="details-btn">View Details</a>
+                <span>Rs. 450</span>
+                <button class="details-btn order-trigger">Order Now</button>
               </div>
             </div>
           </article>
-          <article class="product-card">
-            <a href="product.html?id=product-1" class="product-link">
+          <!-- Card 7 -->
+          <article class="product-card" data-price="550" data-old-price="700"
+            data-desc="Rich chocolate muffin injected with premium cocoa cream.">
+            <div class="product-img-wrap order-trigger">
               <img src="images/muffins iamges 2.jpg" alt="Choco Muffin" loading="lazy" />
-            </a>
+            </div>
             <div class="product-meta">
               <h4>Choco Muffin</h4>
               <div class="product-row">
-                <span>$45</span>
-                <a href="#" class="details-btn">View Details</a>
+                <span>Rs. 550</span>
+                <button class="details-btn order-trigger">Order Now</button>
               </div>
             </div>
           </article>
-          <article class="product-card">
-            <a href="product.html?id=product-2" class="product-link">
+          <!-- Card 8 -->
+          <article class="product-card" data-price="850" data-old-price="1000"
+            data-desc="Buttery croissant filled with rich vanilla custard.">
+            <div class="product-img-wrap order-trigger">
               <img src="images/pastw2.jpg" alt="Creamy Croissant" loading="lazy" />
-            </a>
+            </div>
             <div class="product-meta">
               <h4>Creamy Croissant</h4>
               <div class="product-row">
-                <span>$35</span>
-                <a href="#" class="details-btn">View Details</a>
+                <span>Rs. 850</span>
+                <button class="details-btn order-trigger">Order Now</button>
               </div>
             </div>
           </article>
-          <article class="product-card">
-            <a href="product.html?id=product-3" class="product-link">
+          <!-- Card 9 -->
+          <article class="product-card" data-price="920" data-old-price="1100"
+            data-desc="Signature espresso latte with smooth microfoam.">
+            <div class="product-img-wrap order-trigger">
               <img src="images/coffe1.jpg" alt="Signature Latte" loading="lazy" />
-            </a>
+            </div>
             <div class="product-meta">
               <h4>Signature Latte</h4>
               <div class="product-row">
-                <span>$25</span>
-                <a href="#" class="details-btn">View Details</a>
+                <span>Rs. 920</span>
+                <button class="details-btn order-trigger">Order Now</button>
               </div>
             </div>
           </article>
@@ -382,10 +540,17 @@
     </section>
 
     <section id="offer" class="offer-banner reveal">
-      <div class="container offer-content">
-        <h3>20% Off Your First Order</h3>
-        <p>Premium quality coffee and fresh bakery, now at starter discount.</p>
-        <a href="#contact" class="btn">Claim Offer</a>
+      <div class="container">
+        <div class="offer-card">
+          <div class="offer-badge">Limited Offer</div>
+          <h2>20% OFF</h2>
+          <h3>Your First Order</h3>
+          <p>Indulge in the finest handcrafted coffee and fresh artisan bakes with an exclusive starter discount.</p>
+          <div class="offer-cta-wrap">
+            <a href="#products" class="btn btn-gold">Claim This Offer</a>
+            <span class="offer-code">Use Code: <strong>NEWCAFE20</strong></span>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -425,116 +590,102 @@
           <span data-filter="favorite">Favorite</span>
         </div>
         <div class="gallery-grid">
-          <div class="gallery-item" data-category="favorite">
-            <img src="images/cofe.jpg" alt="Bakery item one" loading="lazy" />
+          <div class="gallery-item" data-category="favorite" data-price="450" data-old-price="600"
+            data-desc="Freshly brewed signature cafe blend with aromatic notes.">
+            <img src="images/cofe.jpg" alt="Signature Coffee" loading="lazy" />
             <div class="gallery-overlay">
-              <a href="#contact" class="order-btn">Order Now</a>
+              <button class="order-btn order-trigger">Order Now</button>
             </div>
           </div>
-          <div class="gallery-item" data-category="cake">
-            <img src="images/coffe1.jpg" alt="Bakery item two" loading="lazy" />
+          <div class="gallery-item" data-category="cake" data-price="1200" data-old-price="1500"
+            data-desc="Rich vanilla cake with creamy layers and professional finish.">
+            <img src="images/coffe1.jpg" alt="Vanilla Dream Cake" loading="lazy" />
             <div class="gallery-overlay">
-              <a href="#contact" class="order-btn">Order Now</a>
+              <button class="order-btn order-trigger">Order Now</button>
             </div>
           </div>
-          <div class="gallery-item" data-category="croissant">
-            <img src="images/coffe2.jpg" alt="Bakery item three" loading="lazy" />
+          <div class="gallery-item" data-category="croissant" data-price="550" data-old-price="750"
+            data-desc="Flaky artisan croissant made with premium butter.">
+            <img src="images/coffe2.jpg" alt="Artisan Croissant" loading="lazy" />
             <div class="gallery-overlay">
-              <a href="#contact" class="order-btn">Order Now</a>
+              <button class="order-btn order-trigger">Order Now</button>
             </div>
           </div>
-          <div class="gallery-item" data-category="bread">
-            <img src="images/donts2.jpg" alt="Bakery item four" loading="lazy" />
+          <div class="gallery-item" data-category="bread" data-price="350" data-old-price="500"
+            data-desc="Assorted colorful donuts with sweet glaze.">
+            <img src="images/donts2.jpg" alt="Glazed Donuts" loading="lazy" />
             <div class="gallery-overlay">
-              <a href="#contact" class="order-btn">Order Now</a>
+              <button class="order-btn order-trigger">Order Now</button>
             </div>
           </div>
-          <div class="gallery-item" data-category="muffin">
-            <img src="images/muffins iamges 2.jpg" alt="Bakery item five" loading="lazy" />
+          <div class="gallery-item" data-category="muffin" data-price="690" data-old-price="850"
+            data-desc="Signature chocolate injected muffins, baked fresh daily.">
+            <img src="images/muffins iamges 2.jpg" alt="Signature Muffin" loading="lazy" />
             <div class="gallery-overlay">
-              <a href="#contact" class="order-btn">Order Now</a>
+              <button class="order-btn order-trigger">Order Now</button>
             </div>
           </div>
           <div class="gallery-item" data-category="favorite">
             <img src="images/shakes.jpg" alt="Bakery item six" loading="lazy" />
             <div class="gallery-overlay">
-              <a href="#contact" class="order-btn">Order Now</a>
+              <button class="order-btn order-trigger">Order Now</button>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <section id="contact" class="section dark-section reveal">
-      <div class="container contact-wrap">
-        <div>
-          <h3>About Us</h3>
-          <p>
-            Kyesthensia Cafe delivers a high-end cafe experience with modern
-            service, dine-in comfort, and handcrafted products.
-          </p>
-        </div>
-        <div class="about-highlight">
-          <p><strong>Open Daily:</strong> 7:00 AM - 10:00 PM</p>
-          <p><strong>Free Wi-Fi:</strong> Available</p>
-          <p><strong>Service:</strong> Dine-in, Takeaway, Delivery</p>
-          <p><strong>Address:</strong> 123 Coffee Street, Your City</p>
-        </div>
-      </div>
-    </section>
+
   </main>
 
-  <a class="fab whatsapp-float" href="https://wa.me/923001234567" target="_blank" rel="noopener noreferrer"
-    aria-label="Chat on WhatsApp">
+  <a class="fab whatsapp-float"
+    href="https://api.whatsapp.com/send?phone=447781556888&text=Hello!%20I%20would%20like%20to%20inquire%20about%20Kyesthensia%20Cafe."
+    target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">
     <svg viewBox="0 0 24 24" aria-hidden="true">
       <path
         d="M20.52 3.48A11.76 11.76 0 0 0 12.12 0C5.82 0 .72 5.1.72 11.4c0 2 .52 3.95 1.52 5.68L0 24l7.1-2.2a11.34 11.34 0 0 0 5.02 1.2h.01c6.3 0 11.4-5.1 11.4-11.4 0-3.04-1.18-5.9-3.01-8.12ZM12.13 20.9a9.45 9.45 0 0 1-4.82-1.32l-.35-.21-4.21 1.3 1.37-4.1-.23-.37a9.46 9.46 0 0 1-1.46-4.98c0-5.24 4.27-9.5 9.52-9.5 2.54 0 4.93.98 6.72 2.77a9.38 9.38 0 0 1 2.79 6.71c-.01 5.24-4.29 9.5-9.53 9.5Zm5.2-7.13c-.28-.14-1.64-.81-1.9-.9-.25-.1-.43-.14-.62.14-.19.28-.72.9-.88 1.08-.16.19-.33.21-.61.07-.28-.14-1.2-.44-2.28-1.41-.84-.75-1.41-1.68-1.57-1.96-.16-.28-.02-.43.12-.57.13-.13.28-.33.42-.49.14-.17.19-.29.29-.49.1-.19.05-.36-.02-.5-.07-.14-.62-1.5-.85-2.05-.22-.53-.45-.45-.62-.46h-.53c-.19 0-.49.07-.75.36-.26.28-.98.96-.98 2.34 0 1.38 1 2.7 1.14 2.89.14.19 1.96 3 4.76 4.2.67.29 1.2.47 1.6.6.67.21 1.29.18 1.77.11.54-.08 1.64-.67 1.87-1.31.23-.64.23-1.19.16-1.31-.07-.12-.26-.19-.54-.33Z" />
     </svg>
   </a>
   <button class="fab scroll-top" type="button" aria-label="Scroll to top">
-    ↑
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+      stroke-linecap="round" stroke-linejoin="round">
+      <path d="M18 15l-6-6-6 6" />
+    </svg>
   </button>
 
-  <footer class="site-footer">
+  <footer class="footer">
     <div class="container footer-grid">
-      <div>
-        <h4>Kyesthensia Cafe</h4>
-        <p>
-          Premium coffee and bakery experience with handcrafted products and
-          warm service every day.
-        </p>
+      <div class="footer-brand">
+        <img src="images/logo2.png" alt="Kyesthensia Logo" class="footer-logo">
+        <p>Elevating your coffee experience since 2014. Premium beans, artisan bakes, and soulful moments.</p>
+        <div class="social-links">
+          <a href="#" aria-label="Facebook">FB</a>
+          <a href="#" aria-label="Instagram">IG</a>
+          <a href="#" aria-label="Twitter">TW</a>
+        </div>
       </div>
-      <div>
+      <div class="footer-links">
         <h4>Quick Links</h4>
         <ul>
           <li><a href="#home">Home</a></li>
-          <li><a href="#products">Products</a></li>
-          <li><a href="#offer">Offers</a></li>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#products">Our Menu</a></li>
           <li><a href="#gallery">Gallery</a></li>
         </ul>
       </div>
-      <div>
-        <h4>Contact Info</h4>
-        <ul>
-          <li>Phone: +92 300 1234567</li>
-          <li>Email: hello@kyesthensia.com</li>
-          <li>Address: 123 Coffee Street, Your City</li>
-        </ul>
-      </div>
-      <div>
-        <h4>Open Hours</h4>
-        <ul>
-          <li>Monday - Friday: 7:00 AM - 10:00 PM</li>
-          <li>Saturday: 8:00 AM - 11:00 PM</li>
-          <li>Sunday: 8:00 AM - 10:00 PM</li>
-        </ul>
+      <div class="footer-contact">
+        <h4>Contact Us</h4>
+        <p>123 Coffee Lane, Artisan Block</p>
+        <p>Karachi, Pakistan</p>
+        <p>Email: hello@kyesthensia.com</p>
+        <p>Phone: +44 7781 556888</p>
       </div>
     </div>
     <div class="footer-bottom">
-      <p>&copy; 2026 Kyesthensia Cafe. All rights reserved.</p>
-      <p>Develop and Manage by Demaryx Tech Agency</p>
+      <p>&copy; 2026 Kyesthensia Cafe. Developed by Demaryx Agency.</p>
     </div>
   </footer>
+
   <script>
     const preloader = document.getElementById("preloader");
     const dealsModal = document.getElementById("dealsModal");
@@ -550,44 +701,157 @@
     let posterIndex = 0;
 
     window.addEventListener("load", () => {
-      preloader.classList.add("hide");
       setTimeout(() => {
-        preloader.style.display = "none";
-        // Show deals popup after preloader is hidden
-        dealsModal.classList.add("show");
-      }, 5000); // 5 sec preloader
+        preloader.classList.add("hide");
+        setTimeout(() => {
+          preloader.style.display = "none";
+          // Show deals popup after preloader is hidden
+          dealsModal.classList.add("show");
+        }, 500);
+      }, 3000); // 3 sec preloader for better UX
     });
 
     const closeModals = () => {
       dealsModal.classList.remove("show");
       orderModal.classList.remove("show");
+      authModal.classList.remove("show");
     };
 
     closePopup.addEventListener("click", closeModals);
     closeOrderPopup.addEventListener("click", closeModals);
+    closeAuthPopup.addEventListener("click", closeModals);
 
-    // Open Order Modal from Gallery
-    document.querySelectorAll(".order-btn").forEach(btn => {
-      btn.addEventListener("click", (e) => {
+    userTrigger.addEventListener("click", () => {
+      authModal.classList.add("show");
+    });
+
+    // Modal Auth Logic
+    const modalToggleAuth = document.getElementById("modalToggleAuth");
+    const modalLoginForm = document.getElementById("modalLoginForm");
+    const modalRegisterForm = document.getElementById("modalRegisterForm");
+    const modalAuthTitle = document.getElementById("modalAuthTitle");
+    const modalAuthSubtitle = document.getElementById("modalAuthSubtitle");
+    const modalToggleText = document.getElementById("modalToggleText");
+    let isModalLogin = true;
+
+    modalToggleAuth.addEventListener("click", (e) => {
+      e.preventDefault();
+      isModalLogin = !isModalLogin;
+      if (isModalLogin) {
+        modalLoginForm.classList.remove("hide");
+        modalRegisterForm.classList.add("hide");
+        modalAuthTitle.textContent = "Sign In";
+        modalAuthSubtitle.innerHTML = "Use <strong>test@demaryx.com</strong> / <strong>123</strong> to test.";
+        modalToggleText.innerHTML = 'New member? <a href="#" id="modalToggleAuth">Create Account</a>';
+      } else {
+        modalLoginForm.classList.add("hide");
+        modalRegisterForm.classList.remove("hide");
+        modalAuthTitle.textContent = "Join Us";
+        modalAuthSubtitle.textContent = "Create your premium account.";
+        modalToggleText.innerHTML = 'Already a member? <a href="#" id="modalToggleAuth">Sign In</a>';
+      }
+      // Re-bind toggle event since innerHTML changes it
+      document.getElementById("modalToggleAuth").addEventListener("click", (e) => {
         e.preventDefault();
-        const productName = e.target.closest(".gallery-item").querySelector("img").alt;
-        selectedProductSpan.textContent = productName;
-        orderModal.classList.add("show");
+        modalToggleAuth.click();
       });
     });
 
-    // Open Order Modal from Products Section
-    document.querySelectorAll(".details-btn").forEach(btn => {
-      btn.addEventListener("click", (e) => {
-        e.preventDefault();
-        const productName = e.target.closest(".product-card").querySelector("h4").textContent;
-        selectedProductSpan.textContent = productName;
-        orderModal.classList.add("show");
-      });
+    // Modal Login Submit
+    modalLoginForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const email = document.getElementById("modalLoginEmail").value;
+      const pass = document.getElementById("modalLoginPassword").value;
+      if (email === "test@demaryx.com" && pass === "123") {
+        localStorage.setItem("isLoggedIn", "true");
+        alert("Welcome back!");
+        closeModals();
+        location.reload(); // Refresh to update nav state
+      } else {
+        alert("Invalid credentials. Use test@demaryx.com / 123");
+      }
+    });
+
+    // Modal OTP Logic
+    const modalSendOtpBtn = document.getElementById("modalSendOtpBtn");
+    modalSendOtpBtn.addEventListener("click", () => {
+      alert("[SIMULATION] Your code is: 1234");
+      document.getElementById("modalRegStep1").classList.add("hide");
+      document.getElementById("modalRegStep2").classList.remove("hide");
     });
 
     let cartCount = 0;
     let currentQty = 1;
+    let baseProductPrice = 0;
+    let discountAmount = 0;
+
+    const updateTotalPrice = () => {
+      const subtotal = baseProductPrice * currentQty;
+      const total = subtotal - (subtotal * (discountAmount / 100));
+      document.querySelector(".total-price").textContent = `Rs. ${Math.round(total)}`;
+    };
+
+    const openOrderModal = (name, price, oldPrice, desc, img) => {
+      selectedProductSpan.textContent = name;
+      document.getElementById("orderDesc").textContent = desc;
+      document.getElementById("orderOldPrice").textContent = `Rs. ${oldPrice}`;
+      document.getElementById("orderNewPrice").textContent = `Rs. ${price}`;
+      document.getElementById("orderProductImg").src = img;
+
+      // Reset coupon for new item
+      discountAmount = 0;
+      document.getElementById("couponCode").value = "";
+      document.getElementById("couponMsg").textContent = "";
+      document.getElementById("couponMsg").className = "coupon-msg";
+
+      baseProductPrice = parseInt(price);
+      currentQty = 1;
+      qtyDisplay.textContent = "1";
+      updateTotalPrice();
+
+      orderModal.classList.add("show");
+    };
+
+    // Coupon Logic
+    const applyCouponBtn = document.getElementById("applyCouponBtn");
+    const couponCodeInput = document.getElementById("couponCode");
+    const couponMsg = document.getElementById("couponMsg");
+
+    applyCouponBtn.addEventListener("click", () => {
+      const code = couponCodeInput.value.trim().toUpperCase();
+      if (code === "DEMARYX") {
+        discountAmount = 20; // 20% Off
+        couponMsg.textContent = "Coupon Applied! 20% discount added.";
+        couponMsg.className = "coupon-msg success";
+        updateTotalPrice();
+      } else if (code === "") {
+        couponMsg.textContent = "Please enter a code.";
+        couponMsg.className = "coupon-msg error";
+      } else {
+        discountAmount = 0;
+        couponMsg.textContent = "Invalid coupon code.";
+        couponMsg.className = "coupon-msg error";
+        updateTotalPrice();
+      }
+    });
+
+    // Unified trigger for all order buttons
+    document.addEventListener("click", (e) => {
+      const trigger = e.target.closest(".order-trigger, .order-btn");
+      if (!trigger) return;
+
+      e.preventDefault();
+      const card = e.target.closest(".product-card, .h-product-card, .gallery-item");
+      if (!card) return;
+
+      const name = card.querySelector("h4") ? card.querySelector("h4").textContent : card.querySelector("img").alt;
+      const img = card.querySelector("img").src;
+      const price = card.dataset.price || 750;
+      const oldPrice = card.dataset.oldPrice || 1000;
+      const desc = card.dataset.desc || "Handcrafted premium treats made with signature ingredients for a perfect experience.";
+
+      openOrderModal(name, price, oldPrice, desc, img);
+    });
 
     // Quantity Logic
     const qtyMinus = document.getElementById("qtyMinus");
@@ -608,12 +872,6 @@
       updateTotalPrice();
     });
 
-    const updateTotalPrice = () => {
-      const basePrice = 723; // In a real app, this would be dynamic
-      const total = basePrice * currentQty;
-      document.querySelector(".total-price").textContent = `Rs. ${total}`;
-    };
-
     // Form Submission (Add to Cart)
     orderForm.addEventListener("submit", (e) => {
       e.preventDefault();
@@ -627,20 +885,20 @@
 
       const submitBtn = orderForm.querySelector(".add-to-cart-btn");
       const originalContent = submitBtn.innerHTML;
-      
+
       submitBtn.innerHTML = "Adding...";
       submitBtn.disabled = true;
 
       setTimeout(() => {
         cartCount += currentQty;
         document.getElementById("cartCount").textContent = cartCount;
-        
+
         alert(`Success! ${currentQty} item(s) added to your cart.`);
-        
+
         submitBtn.innerHTML = originalContent;
         submitBtn.disabled = false;
         closeModals();
-        
+
         // Reset quantity for next open
         currentQty = 1;
         qtyDisplay.textContent = "1";

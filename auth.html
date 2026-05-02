@@ -1,78 +1,334 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login & Register | Kyesthensia Cafe</title>
+  <title>Auth | Kyesthensia Cafe</title>
   <link rel="stylesheet" href="styles.css">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Outfit:wght@300;400;600;700&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --navy: #0a0e1a;
+      --gold: #d4af37;
+      --gold-light: #f4d06f;
+      --glass: rgba(255, 255, 255, 0.05);
+      --glass-border: rgba(255, 255, 255, 0.1);
+    }
+
+    body.auth-body {
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      background: radial-gradient(circle at center, #1a2436 0%, #0a0e1a 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Outfit', sans-serif;
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    .auth-bg-decor {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: -1;
+    }
+
+    .auth-bg-decor span {
+      position: absolute;
+      background: var(--gold);
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.1;
+    }
+
+    .auth-container {
+      width: 100%;
+      max-width: 450px;
+      padding: 20px;
+      animation: fadeInScale 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes fadeInScale {
+      from {
+        opacity: 0;
+        transform: scale(0.9) translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    .auth-card {
+      background: var(--glass);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: 32px;
+      padding: 40px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .auth-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+
+    .auth-header {
+      text-align: center;
+      margin-bottom: 35px;
+    }
+
+    .auth-logo {
+      width: 80px;
+      margin-bottom: 20px;
+      filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.3));
+    }
+
+    .auth-header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      margin-bottom: 8px;
+      color: var(--gold-light);
+    }
+
+    .auth-header p {
+      font-size: 0.95rem;
+      color: #a0aec0;
+      font-weight: 300;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+      color: var(--gold);
+      font-weight: 600;
+    }
+
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--glass-border);
+      padding: 14px 18px;
+      border-radius: 14px;
+      color: #fff;
+      font-family: inherit;
+      font-size: 0.95rem;
+      transition: all 0.3s;
+      box-sizing: border-box;
+    }
+
+    .form-group input:focus {
+      outline: none;
+      border-color: var(--gold);
+      background: rgba(255, 255, 255, 0.08);
+      box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.1);
+    }
+
+    .auth-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+      font-size: 0.85rem;
+    }
+
+    .remember-me {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      color: #a0aec0;
+    }
+
+    .forgot-link {
+      color: var(--gold);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .forgot-link:hover {
+      color: var(--gold-light);
+    }
+
+    .btn-auth {
+      background: var(--gold);
+      color: var(--navy);
+      border: none;
+      width: 100%;
+      padding: 16px;
+      border-radius: 14px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .btn-auth:hover {
+      background: var(--gold-light);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(212, 175, 55, 0.2);
+    }
+
+    .auth-footer {
+      text-align: center;
+      margin-top: 30px;
+      font-size: 0.9rem;
+      color: #a0aec0;
+    }
+
+    .auth-footer a {
+      color: var(--gold);
+      text-decoration: none;
+      font-weight: 600;
+      margin-left: 5px;
+    }
+
+    .hide {
+      display: none !important;
+    }
+
+    /* OTP Inputs */
+    .otp-container {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      margin: 25px 0;
+    }
+
+    .otp-input {
+      width: 50px !important;
+      height: 60px;
+      text-align: center;
+      font-size: 1.5rem !important;
+      font-weight: 700;
+      border-radius: 12px !important;
+    }
+
+    .otp-message {
+      text-align: center;
+      font-size: 0.9rem;
+      color: #a0aec0;
+      line-height: 1.5;
+    }
+
+    .back-to-home {
+      position: absolute;
+      top: 30px;
+      left: 30px;
+      color: #fff;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.9rem;
+      opacity: 0.6;
+      transition: opacity 0.3s;
+    }
+
+    .back-to-home:hover {
+      opacity: 1;
+    }
+  </style>
 </head>
+
 <body class="auth-body">
+  <div class="auth-bg-decor">
+    <span style="top: 10%; left: 10%; width: 300px; height: 300px;"></span>
+    <span style="bottom: 10%; right: 10%; width: 400px; height: 400px;"></span>
+  </div>
+
+  <a href="index.html" class="back-to-home">← Back to Cafe</a>
+
   <div class="auth-container">
     <div class="auth-card">
       <div class="auth-header">
         <a href="index.html">
           <img src="images/logo2.png" alt="Kyesthensia Logo" class="auth-logo">
         </a>
-        <h1 id="authTitle">Welcome Back</h1>
-        <p id="authSubtitle">Please enter your details to sign in.</p>
+        <h1 id="authTitle">Sign In</h1>
+        <p id="authSubtitle">Use <strong>test@demaryx.com</strong> / <strong>123</strong> to test.</p>
       </div>
 
       <!-- Login Form -->
       <form id="loginForm" class="auth-form">
         <div class="form-group">
-          <label for="loginEmail">Email or Phone Number</label>
-          <input type="text" id="loginEmail" placeholder="email@example.com" required>
+          <label for="loginEmail">Email / Phone</label>
+          <input type="text" id="loginEmail" placeholder="test@demaryx.com" required>
         </div>
         <div class="form-group">
           <label for="loginPassword">Password</label>
-          <input type="password" id="loginPassword" placeholder="••••••••" required>
+          <input type="password" id="loginPassword" placeholder="123" required>
         </div>
         <div class="auth-actions">
           <label class="remember-me">
-            <input type="checkbox"> Remember me
+            <input type="checkbox"> Remember
           </label>
-          <a href="#" class="forgot-link">Forgot password?</a>
+          <a href="#" class="forgot-link">Forgot?</a>
         </div>
-        <button type="submit" class="btn btn-full">Sign In</button>
+        <button type="submit" class="btn-auth">Access Account</button>
       </form>
 
       <!-- Register Form -->
       <form id="registerForm" class="auth-form hide">
         <div id="registerStep1">
           <div class="form-group">
-            <label for="regName">Full Name</label>
-            <input type="text" id="regName" placeholder="John Doe" required>
+            <label for="regName">Your Name</label>
+            <input type="text" id="regName" placeholder="Full Name" required>
           </div>
           <div class="form-group">
-            <label for="otpMethod">Get OTP via</label>
-            <select id="otpMethod" class="auth-select">
+            <label for="otpMethod">Verify Via</label>
+            <select id="otpMethod">
               <option value="email">Email Address</option>
               <option value="whatsapp">WhatsApp Number</option>
             </select>
           </div>
           <div class="form-group">
-            <label for="regContact" id="contactLabel">Email Address</label>
+            <label for="regContact" id="contactLabel">Email</label>
             <input type="text" id="regContact" placeholder="email@example.com" required>
           </div>
-          <button type="button" id="sendOtpBtn" class="btn btn-full">Send OTP</button>
+          <button type="button" id="sendOtpBtn" class="btn-auth">Get Security Code</button>
         </div>
 
         <div id="registerStep2" class="hide">
-          <p class="otp-message" id="otpMsg">We've sent a 4-digit code to your email.</p>
+          <p class="otp-message" id="otpMsg">Enter the 4-digit security code.</p>
           <div class="otp-container">
             <input type="text" maxlength="1" class="otp-input" placeholder="•">
             <input type="text" maxlength="1" class="otp-input" placeholder="•">
             <input type="text" maxlength="1" class="otp-input" placeholder="•">
             <input type="text" maxlength="1" class="otp-input" placeholder="•">
           </div>
-          <button type="submit" class="btn btn-full">Verify & Create Account</button>
-          <p class="resend-otp">Didn't receive code? <a href="#">Resend</a></p>
+          <button type="submit" class="btn-auth">Verify & Join</button>
+          <p class="auth-footer" style="margin-top: 15px;">Didn't get it? <a href="#" style="color: #fff;">Resend</a>
+          </p>
         </div>
       </form>
 
       <div class="auth-footer">
-        <p id="toggleText">Don't have an account? <a href="#" id="toggleAuth">Sign Up</a></p>
+        <p id="toggleText">New here? <a href="#" id="toggleAuth">Create Account</a></p>
       </div>
     </div>
   </div>
@@ -109,49 +365,47 @@
     toggleAuth.addEventListener('click', (e) => {
       e.preventDefault();
       isLogin = !isLogin;
-      resetAuth();
 
       if (isLogin) {
         loginForm.classList.remove('hide');
         registerForm.classList.add('hide');
-        authTitle.textContent = 'Welcome Back';
-        authSubtitle.textContent = 'Please enter your details to sign in.';
-        toggleText.innerHTML = "Don't have an account? <a href='#' id='toggleAuth'>Sign Up</a>";
+        authTitle.textContent = 'Sign In';
+        authSubtitle.textContent = 'Experience the finest coffee community.';
+        toggleText.innerHTML = "New here? <a href='#' id='toggleAuth'>Create Account</a>";
       } else {
         loginForm.classList.add('hide');
         registerForm.classList.remove('hide');
-        authTitle.textContent = 'Create Account';
-        authSubtitle.textContent = 'Join our premium coffee community.';
-        toggleText.innerHTML = "Already have an account? <a href='#' id='toggleAuth'>Sign In</a>";
+        registerStep1.classList.remove('hide');
+        registerStep2.classList.add('hide');
+        authTitle.textContent = 'Join Us';
+        authSubtitle.textContent = 'Create your premium cafe account.';
+        toggleText.innerHTML = "Already a member? <a href='#' id='toggleAuth'>Sign In</a>";
       }
-      
+
       document.getElementById('toggleAuth').addEventListener('click', (e) => {
         e.preventDefault();
         toggleAuth.click();
       });
     });
 
-    function resetAuth() {
-      registerStep1.classList.remove('hide');
-      registerStep2.classList.add('hide');
-    }
-
     sendOtpBtn.addEventListener('click', () => {
       const contact = regContact.value;
       if (!contact) {
-        alert('Please fill in the contact details.');
+        alert('Please enter your contact info.');
         return;
       }
-      sendOtpBtn.textContent = 'Sending OTP...';
+      sendOtpBtn.textContent = 'Processing...';
       setTimeout(() => {
         registerStep1.classList.add('hide');
         registerStep2.classList.remove('hide');
-        otpMsg.textContent = `We've sent a 4-digit code to your ${otpMethod.value === 'email' ? 'email' : 'WhatsApp'}: ${contact}`;
-        authSubtitle.textContent = 'Verification Required';
+        otpMsg.textContent = `Security code sent to ${contact}`;
+        authSubtitle.textContent = 'Enter Security Code';
+
+        // Simulation Alert for User Testing
+        alert(`[SIMULATION] Your 4-digit code is: 1234\n(In a live site, this would be sent to your email/WhatsApp)`);
       }, 1000);
     });
 
-    // Auto-focus next OTP input
     const inputs = document.querySelectorAll('.otp-input');
     inputs.forEach((input, index) => {
       input.addEventListener('input', () => {
@@ -164,24 +418,30 @@
     registerForm.addEventListener('submit', (e) => {
       e.preventDefault();
       const btn = registerForm.querySelector('button[type="submit"]');
-      btn.textContent = 'Verifying...';
+      btn.textContent = 'Authenticating...';
       setTimeout(() => {
         localStorage.setItem('isLoggedIn', 'true');
-        alert('Registration Successful!');
         window.location.href = 'index.html';
       }, 1500);
     });
 
     loginForm.addEventListener('submit', (e) => {
       e.preventDefault();
+      const email = document.getElementById('loginEmail').value;
+      const pass = document.getElementById('loginPassword').value;
       const btn = loginForm.querySelector('button');
-      btn.textContent = 'Signing in...';
-      setTimeout(() => {
-        localStorage.setItem('isLoggedIn', 'true');
-        alert('Welcome back!');
-        window.location.href = 'index.html';
-      }, 1500);
+
+      if (email === 'test@demaryx.com' && pass === '123') {
+        btn.textContent = 'Authenticating...';
+        setTimeout(() => {
+          localStorage.setItem('isLoggedIn', 'true');
+          window.location.href = 'index.html';
+        }, 1000);
+      } else {
+        alert('Invalid credentials. Please use the test account: test@demaryx.com / 123');
+      }
     });
   </script>
 </body>
+
 </html>
