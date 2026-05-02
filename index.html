@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Kyesthensia Cafe - premium coffee and bakery with signature treats."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <title>Kyesthensia Cafe</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="preloader" id="preloader" aria-live="polite">
+      <div class="preloader-box">
+        <img src="images/logo-loader.png" alt="Kyesthensia logo" class="preloader-logo" />
+        <p>Kyesthensia Cafe</p>
+        <span class="preloader-ring"></span>
+      </div>
+    </div>
+
+    <!-- Deals Popup Modal -->
+    <div class="popup-modal" id="dealsModal">
+      <div class="popup-content">
+        <button class="close-popup" id="closePopup" aria-label="Close Deals">&times;</button>
+        <div class="popup-header">
+          <h2>Exclusive Deals</h2>
+          <p>Don't miss out on today's specials!</p>
+        </div>
+        <div class="poster-slider" aria-label="Featured posters">
+          <article class="poster-slide active">
+            <img
+              src="images/poster-1.jpg"
+              alt="Fresh bakery poster"
+            />
+            <div class="poster-caption">Fresh Bakes Daily</div>
+          </article>
+          <article class="poster-slide">
+            <img
+              src="images/poster 2.jpg"
+              alt="Premium coffee poster"
+            />
+            <div class="poster-caption">Premium Coffee Beans</div>
+          </article>
+          <article class="poster-slide">
+            <img
+              src="images/poster 3.jpg"
+              alt="Cafe interior poster"
+            />
+            <div class="poster-caption">Cozy Cafe Experience</div>
+          </article>
+          <article class="poster-slide">
+            <img
+              src="images/poster-4.jpg"
+              alt="Special deals poster"
+            />
+            <div class="poster-caption">Special Deals Everyday</div>
+          </article>
+          <div class="poster-dots" aria-hidden="true">
+            <span class="active" data-index="0"></span>
+            <span data-index="1"></span>
+            <span data-index="2"></span>
+            <span data-index="3"></span>
+          </div>
+        </div>
+        <div class="popup-footer">
+          <a href="#offer" class="btn btn-full" id="claimDealBtn">Claim Deal Now</a>
+        </div>
+      </div>
+    </div>
+
+    <header class="hero" id="home">
+      <div class="hero-overlay">
+        <nav class="navbar container">
+          <h1 class="logo">Kyesthensia</h1>
+          <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#products">Products</a></li>
+            <li><a href="#quick-making">Quick Making</a></li>
+            <li><a href="#offer">Offers</a></li>
+            <li><a href="#gallery">Gallery</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </nav>
+
+        <div class="hero-content container">
+          <p class="tag">Delicious Cafe</p>
+          <h2>Sweet Treats, Perfect Eats</h2>
+          <p>
+            Signature coffee, artisan bakery, and premium customer experience in
+            one place.
+          </p>
+          <div class="hero-actions">
+            <a href="#products" class="btn">Shop Now</a>
+            <a href="#gallery" class="btn btn-outline">Learn More</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section id="products" class="section light-section reveal">
+        <div class="container">
+          <h3 class="center-title">Top Products</h3>
+          <div class="product-grid">
+            <article class="product-card">
+              <a href="product.html?id=product-1" class="product-link">
+                <img src="images/burger.jpg" alt="Whole Grain Bread" loading="lazy" />
+              </a>
+              <div class="product-meta">
+                <h4>Whole Grain Bread</h4>
+                <div class="product-row">
+                  <span>$40</span>
+                  <a href="product.html?id=product-1" class="details-btn">View Details</a>
+                </div>
+              </div>
+            </article>
+            <article class="product-card">
+              <a href="product.html?id=product-2" class="product-link">
+                <img src="images/icecream.jpg" alt="Fresh Fruit Tart" loading="lazy" />
+              </a>
+              <div class="product-meta">
+                <h4>Fresh Fruit Tart</h4>
+                <div class="product-row">
+                  <span>$40</span>
+                  <a href="product.html?id=product-2" class="details-btn">View Details</a>
+                </div>
+              </div>
+            </article>
+            <article class="product-card">
+              <a href="product.html?id=product-3" class="product-link">
+                <img src="images/pasta.jpg" alt="French Baguette" loading="lazy" />
+              </a>
+              <div class="product-meta">
+                <h4>French Baguette</h4>
+                <div class="product-row">
+                  <span>$40</span>
+                  <a href="product.html?id=product-3" class="details-btn">View Details</a>
+                </div>
+              </div>
+            </article>
+            <article class="product-card">
+              <a href="product.html?id=product-4" class="product-link">
+                <img src="images/muffin2.jpg" alt="Almond Cake" loading="lazy" />
+              </a>
+              <div class="product-meta">
+                <h4>Almond Cake</h4>
+                <div class="product-row">
+                  <span>$40</span>
+                  <a href="product.html?id=product-4" class="details-btn">View Details</a>
+                </div>
+              </div>
+            </article>
+            <article class="product-card">
+              <a href="product.html?id=product-5" class="product-link">
+                <img src="images/cookies.jpg" alt="Honey Pie" loading="lazy" />
+              </a>
+              <div class="product-meta">
+                <h4>Honey Pie</h4>
+                <div class="product-row">
+                  <span>$40</span>
+                  <a href="product.html?id=product-5" class="details-btn">View Details</a>
+                </div>
+              </div>
+            </article>
+            <article class="product-card">
+              <a href="product.html?id=product-6" class="product-link">
+                <img src="images/donts.jpg" alt="Mini Bun" loading="lazy" />
+              </a>
+              <div class="product-meta">
+                <h4>Mini Bun</h4>
+                <div class="product-row">
+                  <span>$40</span>
+                  <a href="product.html?id=product-6" class="details-btn">View Details</a>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="offer" class="offer-banner reveal">
+        <div class="container offer-content">
+          <h3>20% Off Your First Order</h3>
+          <p>Premium quality coffee and fresh bakery, now at starter discount.</p>
+          <a href="#contact" class="btn">Claim Offer</a>
+        </div>
+      </section>
+
+      <section id="quick-making" class="section quick-making reveal">
+        <div class="container quick-making-wrap">
+          <div>
+            <h3 class="center-title left">Quick Making Process</h3>
+            <p class="quick-text">
+              See how Kyesthensia Cafe prepares fresh coffee and bakery items in
+              a clean, professional process.
+            </p>
+            <ol class="quick-steps">
+              <li>Premium ingredients are selected and measured.</li>
+              <li>Barista prepares and bakes with controlled temperature.</li>
+              <li>Final product is plated and served fresh.</li>
+            </ol>
+          </div>
+          <div class="quick-video-box">
+            <video controls preload="metadata" poster="images/poster-1.jpg">
+              <source src="videos/quick-making.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+          </div>
+        </div>
+      </section>
+
+      <section id="gallery" class="section light-section reveal">
+        <div class="container">
+          <h3 class="center-title">Explore More</h3>
+          <div class="category-tabs">
+            <span class="active" data-filter="all">All</span>
+            <span data-filter="cake">Cake</span>
+            <span data-filter="muffin">Muffin</span>
+            <span data-filter="croissant">Croissant</span>
+            <span data-filter="bread">Bread</span>
+            <span data-filter="tart">Tart</span>
+            <span data-filter="favorite">Favorite</span>
+          </div>
+          <div class="gallery-grid">
+            <img src="images/cofe.jpg" alt="Bakery item one" loading="lazy" data-category="favorite" />
+            <img src="images/coffe1.jpg" alt="Bakery item two" loading="lazy" data-category="cake" />
+            <img src="images/coffe2.jpg" alt="Bakery item three" loading="lazy" data-category="croissant" />
+            <img src="images/donts2.jpg" alt="Bakery item four" loading="lazy" data-category="bread" />
+            <img src="images/muffins iamges 2.jpg" alt="Bakery item five" loading="lazy" data-category="muffin" />
+            <img src="images/shakes.jpg" alt="Bakery item six" loading="lazy" data-category="favorite" />
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" class="section dark-section reveal">
+        <div class="container contact-wrap">
+          <div>
+            <h3>About Us</h3>
+            <p>
+              Kyesthensia Cafe delivers a high-end cafe experience with modern
+              service, dine-in comfort, and handcrafted products.
+            </p>
+          </div>
+          <div class="about-highlight">
+            <p><strong>Open Daily:</strong> 7:00 AM - 10:00 PM</p>
+            <p><strong>Free Wi-Fi:</strong> Available</p>
+            <p><strong>Service:</strong> Dine-in, Takeaway, Delivery</p>
+            <p><strong>Address:</strong> 123 Coffee Street, Your City</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <a
+      class="fab whatsapp-float"
+      href="https://wa.me/923001234567"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Chat on WhatsApp"
+    >
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path
+          d="M20.52 3.48A11.76 11.76 0 0 0 12.12 0C5.82 0 .72 5.1.72 11.4c0 2 .52 3.95 1.52 5.68L0 24l7.1-2.2a11.34 11.34 0 0 0 5.02 1.2h.01c6.3 0 11.4-5.1 11.4-11.4 0-3.04-1.18-5.9-3.01-8.12ZM12.13 20.9a9.45 9.45 0 0 1-4.82-1.32l-.35-.21-4.21 1.3 1.37-4.1-.23-.37a9.46 9.46 0 0 1-1.46-4.98c0-5.24 4.27-9.5 9.52-9.5 2.54 0 4.93.98 6.72 2.77a9.38 9.38 0 0 1 2.79 6.71c-.01 5.24-4.29 9.5-9.53 9.5Zm5.2-7.13c-.28-.14-1.64-.81-1.9-.9-.25-.1-.43-.14-.62.14-.19.28-.72.9-.88 1.08-.16.19-.33.21-.61.07-.28-.14-1.2-.44-2.28-1.41-.84-.75-1.41-1.68-1.57-1.96-.16-.28-.02-.43.12-.57.13-.13.28-.33.42-.49.14-.17.19-.29.29-.49.1-.19.05-.36-.02-.5-.07-.14-.62-1.5-.85-2.05-.22-.53-.45-.45-.62-.46h-.53c-.19 0-.49.07-.75.36-.26.28-.98.96-.98 2.34 0 1.38 1 2.7 1.14 2.89.14.19 1.96 3 4.76 4.2.67.29 1.2.47 1.6.6.67.21 1.29.18 1.77.11.54-.08 1.64-.67 1.87-1.31.23-.64.23-1.19.16-1.31-.07-.12-.26-.19-.54-.33Z"
+        />
+      </svg>
+    </a>
+    <button class="fab scroll-top" type="button" aria-label="Scroll to top">
+      ↑
+    </button>
+
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <div>
+          <h4>Kyesthensia Cafe</h4>
+          <p>
+            Premium coffee and bakery experience with handcrafted products and
+            warm service every day.
+          </p>
+        </div>
+        <div>
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#products">Products</a></li>
+            <li><a href="#offer">Offers</a></li>
+            <li><a href="#gallery">Gallery</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Contact Info</h4>
+          <ul>
+            <li>Phone: +92 300 1234567</li>
+            <li>Email: hello@kyesthensia.com</li>
+            <li>Address: 123 Coffee Street, Your City</li>
+          </ul>
+        </div>
+        <div>
+          <h4>Open Hours</h4>
+          <ul>
+            <li>Monday - Friday: 7:00 AM - 10:00 PM</li>
+            <li>Saturday: 8:00 AM - 11:00 PM</li>
+            <li>Sunday: 8:00 AM - 10:00 PM</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Kyesthensia Cafe. All rights reserved.</p>
+        <p>Develop and Manage by Demaryx Tech Agency</p>
+      </div>
+    </footer>
+    <script>
+      const preloader = document.getElementById("preloader");
+      const dealsModal = document.getElementById("dealsModal");
+      const closePopup = document.getElementById("closePopup");
+      const scrollTopBtn = document.querySelector(".scroll-top");
+      const revealItems = document.querySelectorAll(".reveal");
+      const posterSlides = document.querySelectorAll(".poster-slide");
+      const posterDots = document.querySelectorAll(".poster-dots span");
+      let posterIndex = 0;
+
+      window.addEventListener("load", () => {
+        preloader.classList.add("hide");
+        setTimeout(() => {
+          preloader.style.display = "none";
+          // Show deals popup after preloader is hidden
+          dealsModal.classList.add("show");
+        }, 5000); // 5 sec preloader
+      });
+
+      closePopup.addEventListener("click", () => {
+        dealsModal.classList.remove("show");
+      });
+
+      const toggleScrollButton = () => {
+        if (window.scrollY > 260) {
+          scrollTopBtn.classList.add("show");
+        } else {
+          scrollTopBtn.classList.remove("show");
+        }
+      };
+
+      window.addEventListener("scroll", toggleScrollButton, { passive: true });
+      scrollTopBtn.addEventListener("click", () => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("show");
+            }
+          });
+        },
+        { threshold: 0.15 }
+      );
+
+      revealItems.forEach((item) => observer.observe(item));
+
+      const showPoster = (index) => {
+        posterSlides.forEach((slide, i) => {
+          slide.classList.toggle("active", i === index);
+          posterDots[i].classList.toggle("active", i === index);
+        });
+      };
+
+      let sliderInterval = setInterval(() => {
+        posterIndex = (posterIndex + 1) % posterSlides.length;
+        showPoster(posterIndex);
+      }, 2800);
+
+      // Make dots clickable
+      posterDots.forEach((dot) => {
+        dot.addEventListener("click", (e) => {
+          clearInterval(sliderInterval);
+          posterIndex = parseInt(e.target.getAttribute("data-index"));
+          showPoster(posterIndex);
+          // Restart interval
+          sliderInterval = setInterval(() => {
+            posterIndex = (posterIndex + 1) % posterSlides.length;
+            showPoster(posterIndex);
+          }, 2800);
+        });
+      });
+
+      // Claim deal close popup
+      document.getElementById("claimDealBtn").addEventListener("click", () => {
+        dealsModal.classList.remove("show");
+      });
+
+      // Gallery Filtering
+      const filterTabs = document.querySelectorAll(".category-tabs span");
+      const galleryItems = document.querySelectorAll(".gallery-grid img");
+
+      filterTabs.forEach((tab) => {
+        tab.addEventListener("click", () => {
+          filterTabs.forEach((t) => t.classList.remove("active"));
+          tab.classList.add("active");
+          const filter = tab.getAttribute("data-filter");
+
+          galleryItems.forEach((item) => {
+            if (filter === "all" || item.getAttribute("data-category") === filter) {
+              item.classList.remove("hide");
+            } else {
+              item.classList.add("hide");
+            }
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

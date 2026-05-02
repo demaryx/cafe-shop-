@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Product Details | Kyesthensia Cafe</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="section">
+      <div class="container product-detail-wrap">
+        <a href="index.html#products" class="btn">Back to Products</a>
+        <div class="product-detail-card">
+          <img id="detailImage" src="images/product-1.jpg" alt="Product image" />
+          <div class="product-detail-content">
+            <h1 id="detailTitle">Product Name</h1>
+            <p id="detailPrice" class="detail-price">$0</p>
+            <p id="detailDescription">
+              Product description will appear here.
+            </p>
+            <ul class="detail-points" id="detailPoints"></ul>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script>
+      const products = {
+        "product-1": {
+          title: "Whole Grain Bread",
+          price: "$40",
+          image: "images/burger.jpg",
+          description:
+            "Freshly baked whole grain bread with balanced texture and rich taste.",
+          points: ["High-fiber flour", "Perfect for breakfast", "Freshly baked daily"],
+        },
+        "product-2": {
+          title: "Fresh Fruit Tart",
+          price: "$40",
+          image: "images/icecream.jpg",
+          description:
+            "Light and creamy fruit tart made with seasonal toppings and crisp crust.",
+          points: ["Premium cream", "Seasonal fruits", "Best served chilled"],
+        },
+        "product-3": {
+          title: "French Baguette",
+          price: "$40",
+          image: "images/pasta.jpg",
+          description:
+            "Classic French baguette with crispy crust and soft interior.",
+          points: ["Stone-baked texture", "Authentic recipe", "Great with soups"],
+        },
+        "product-4": {
+          title: "Almond Cake",
+          price: "$40",
+          image: "images/muffin2.jpg",
+          description:
+            "Soft almond cake with buttery notes and a premium bakery finish.",
+          points: ["Roasted almond flavor", "Light sweetness", "Handcrafted garnish"],
+        },
+        "product-5": {
+          title: "Honey Pie",
+          price: "$40",
+          image: "images/cookies.jpg",
+          description:
+            "Golden honey pie made with smooth layers and aromatic filling.",
+          points: ["Natural honey touch", "Layered pastry", "Cafe signature item"],
+        },
+        "product-6": {
+          title: "Mini Bun",
+          price: "$40",
+          image: "images/donts.jpg",
+          description:
+            "Soft mini bun ideal for quick snacks with tea or coffee pairings.",
+          points: ["Soft baked dough", "Family favorite", "Fresh every morning"],
+        },
+      };
+
+      const params = new URLSearchParams(window.location.search);
+      const id = params.get("id") || "product-1";
+      const product = products[id] || products["product-1"];
+
+      document.getElementById("detailImage").src = product.image;
+      document.getElementById("detailImage").alt = product.title;
+      document.getElementById("detailTitle").textContent = product.title;
+      document.getElementById("detailPrice").textContent = product.price;
+      document.getElementById("detailDescription").textContent = product.description;
+      document.getElementById("detailPoints").innerHTML = product.points
+        .map((point) => "<li>" + point + "</li>")
+        .join("");
+    </script>
+  </body>
+</html>
