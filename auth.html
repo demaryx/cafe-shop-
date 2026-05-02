@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login & Register | Kyesthensia Cafe</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="auth-body">
+  <div class="auth-container">
+    <div class="auth-card">
+      <div class="auth-header">
+        <a href="index.html">
+          <img src="images/logo2.png" alt="Kyesthensia Logo" class="auth-logo">
+        </a>
+        <h1 id="authTitle">Welcome Back</h1>
+        <p id="authSubtitle">Please enter your details to sign in.</p>
+      </div>
+
+      <!-- Login Form -->
+      <form id="loginForm" class="auth-form">
+        <div class="form-group">
+          <label for="loginEmail">Email or Phone Number</label>
+          <input type="text" id="loginEmail" placeholder="email@example.com" required>
+        </div>
+        <div class="form-group">
+          <label for="loginPassword">Password</label>
+          <input type="password" id="loginPassword" placeholder="••••••••" required>
+        </div>
+        <div class="auth-actions">
+          <label class="remember-me">
+            <input type="checkbox"> Remember me
+          </label>
+          <a href="#" class="forgot-link">Forgot password?</a>
+        </div>
+        <button type="submit" class="btn btn-full">Sign In</button>
+      </form>
+
+      <!-- Register Form -->
+      <form id="registerForm" class="auth-form hide">
+        <div id="registerStep1">
+          <div class="form-group">
+            <label for="regName">Full Name</label>
+            <input type="text" id="regName" placeholder="John Doe" required>
+          </div>
+          <div class="form-group">
+            <label for="otpMethod">Get OTP via</label>
+            <select id="otpMethod" class="auth-select">
+              <option value="email">Email Address</option>
+              <option value="whatsapp">WhatsApp Number</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="regContact" id="contactLabel">Email Address</label>
+            <input type="text" id="regContact" placeholder="email@example.com" required>
+          </div>
+          <button type="button" id="sendOtpBtn" class="btn btn-full">Send OTP</button>
+        </div>
+
+        <div id="registerStep2" class="hide">
+          <p class="otp-message" id="otpMsg">We've sent a 4-digit code to your email.</p>
+          <div class="otp-container">
+            <input type="text" maxlength="1" class="otp-input" placeholder="•">
+            <input type="text" maxlength="1" class="otp-input" placeholder="•">
+            <input type="text" maxlength="1" class="otp-input" placeholder="•">
+            <input type="text" maxlength="1" class="otp-input" placeholder="•">
+          </div>
+          <button type="submit" class="btn btn-full">Verify & Create Account</button>
+          <p class="resend-otp">Didn't receive code? <a href="#">Resend</a></p>
+        </div>
+      </form>
+
+      <div class="auth-footer">
+        <p id="toggleText">Don't have an account? <a href="#" id="toggleAuth">Sign Up</a></p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const loginForm = document.getElementById('loginForm');
+    const registerForm = document.getElementById('registerForm');
+    const registerStep1 = document.getElementById('registerStep1');
+    const registerStep2 = document.getElementById('registerStep2');
+    const otpMethod = document.getElementById('otpMethod');
+    const contactLabel = document.getElementById('contactLabel');
+    const regContact = document.getElementById('regContact');
+    const sendOtpBtn = document.getElementById('sendOtpBtn');
+    const otpMsg = document.getElementById('otpMsg');
+    const toggleAuth = document.getElementById('toggleAuth');
+    const authTitle = document.getElementById('authTitle');
+    const authSubtitle = document.getElementById('authSubtitle');
+    const toggleText = document.getElementById('toggleText');
+
+    let isLogin = true;
+
+    otpMethod.addEventListener('change', () => {
+      if (otpMethod.value === 'email') {
+        contactLabel.textContent = 'Email Address';
+        regContact.placeholder = 'email@example.com';
+        regContact.type = 'email';
+      } else {
+        contactLabel.textContent = 'WhatsApp Number';
+        regContact.placeholder = '0300-1234567';
+        regContact.type = 'tel';
+      }
+    });
+
+    toggleAuth.addEventListener('click', (e) => {
+      e.preventDefault();
+      isLogin = !isLogin;
+      resetAuth();
+
+      if (isLogin) {
+        loginForm.classList.remove('hide');
+        registerForm.classList.add('hide');
+        authTitle.textContent = 'Welcome Back';
+        authSubtitle.textContent = 'Please enter your details to sign in.';
+        toggleText.innerHTML = "Don't have an account? <a href='#' id='toggleAuth'>Sign Up</a>";
+      } else {
+        loginForm.classList.add('hide');
+        registerForm.classList.remove('hide');
+        authTitle.textContent = 'Create Account';
+        authSubtitle.textContent = 'Join our premium coffee community.';
+        toggleText.innerHTML = "Already have an account? <a href='#' id='toggleAuth'>Sign In</a>";
+      }
+      
+      document.getElementById('toggleAuth').addEventListener('click', (e) => {
+        e.preventDefault();
+        toggleAuth.click();
+      });
+    });
+
+    function resetAuth() {
+      registerStep1.classList.remove('hide');
+      registerStep2.classList.add('hide');
+    }
+
+    sendOtpBtn.addEventListener('click', () => {
+      const contact = regContact.value;
+      if (!contact) {
+        alert('Please fill in the contact details.');
+        return;
+      }
+      sendOtpBtn.textContent = 'Sending OTP...';
+      setTimeout(() => {
+        registerStep1.classList.add('hide');
+        registerStep2.classList.remove('hide');
+        otpMsg.textContent = `We've sent a 4-digit code to your ${otpMethod.value === 'email' ? 'email' : 'WhatsApp'}: ${contact}`;
+        authSubtitle.textContent = 'Verification Required';
+      }, 1000);
+    });
+
+    // Auto-focus next OTP input
+    const inputs = document.querySelectorAll('.otp-input');
+    inputs.forEach((input, index) => {
+      input.addEventListener('input', () => {
+        if (input.value && index < inputs.length - 1) {
+          inputs[index + 1].focus();
+        }
+      });
+    });
+
+    registerForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const btn = registerForm.querySelector('button[type="submit"]');
+      btn.textContent = 'Verifying...';
+      setTimeout(() => {
+        localStorage.setItem('isLoggedIn', 'true');
+        alert('Registration Successful!');
+        window.location.href = 'index.html';
+      }, 1500);
+    });
+
+    loginForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const btn = loginForm.querySelector('button');
+      btn.textContent = 'Signing in...';
+      setTimeout(() => {
+        localStorage.setItem('isLoggedIn', 'true');
+        alert('Welcome back!');
+        window.location.href = 'index.html';
+      }, 1500);
+    });
+  </script>
+</body>
+</html>

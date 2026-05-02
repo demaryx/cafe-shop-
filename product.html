@@ -19,10 +19,59 @@
               Product description will appear here.
             </p>
             <ul class="detail-points" id="detailPoints"></ul>
+            <button id="orderNowBtn" class="btn btn-full" style="margin-top: 25px;">Order Now</button>
           </div>
         </div>
       </div>
     </main>
+
+    <!-- Order Modal -->
+    <div class="popup-modal" id="orderModal">
+      <div class="popup-content order-popup">
+        <button class="close-popup" id="closeOrderPopup" aria-label="Close Order">&times;</button>
+        <div class="popup-header">
+          <h2>Place Your Order</h2>
+          <p>Complete the form below to order <span id="selectedProduct" style="color: var(--accent); font-weight: 700;">this item</span></p>
+        </div>
+        <form id="orderForm" class="order-form">
+          <div class="form-group">
+            <label for="orderName">Full Name</label>
+            <input type="text" id="orderName" required placeholder="Your Name" />
+          </div>
+          <div class="form-group">
+            <label for="orderPhone">Phone Number</label>
+            <input type="tel" id="orderPhone" required placeholder="0300-1234567" />
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="orderSize">Size</label>
+              <select id="orderSize">
+                <option value="regular">Regular</option>
+                <option value="large">Large (+ $5)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="orderQuantity">Quantity</label>
+              <input type="number" id="orderQuantity" value="1" min="1" required />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="orderExtras">Customize (Milk / Sugar / Toppings)</label>
+            <select id="orderExtras">
+              <option value="none">Standard</option>
+              <option value="extra-sugar">Extra Sugar</option>
+              <option value="almond-milk">Almond Milk</option>
+              <option value="extra-cream">Extra Cream</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="orderAddress">Delivery Address</label>
+            <textarea id="orderAddress" rows="2" required placeholder="Enter your full address"></textarea>
+          </div>
+          <button type="submit" class="btn btn-full">Confirm Order</button>
+        </form>
+      </div>
+    </div>
 
     <script>
       const products = {
@@ -88,6 +137,37 @@
       document.getElementById("detailPoints").innerHTML = product.points
         .map((point) => "<li>" + point + "</li>")
         .join("");
+
+      // Order Modal Logic
+      const orderModal = document.getElementById("orderModal");
+      const orderNowBtn = document.getElementById("orderNowBtn");
+      const closeOrderPopup = document.getElementById("closeOrderPopup");
+      const selectedProductSpan = document.getElementById("selectedProduct");
+      const orderForm = document.getElementById("orderForm");
+
+      orderNowBtn.addEventListener("click", () => {
+        selectedProductSpan.textContent = product.title;
+        orderModal.classList.add("show");
+      });
+
+      closeOrderPopup.addEventListener("click", () => {
+        orderModal.classList.remove("show");
+      });
+
+      orderForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const submitBtn = orderForm.querySelector("button");
+        submitBtn.textContent = "Processing...";
+        submitBtn.disabled = true;
+
+        setTimeout(() => {
+          alert("Order Received! We will contact you shortly to confirm.");
+          orderForm.reset();
+          submitBtn.textContent = "Confirm Order";
+          submitBtn.disabled = false;
+          orderModal.classList.remove("show");
+        }, 1500);
+      });
     </script>
   </body>
 </html>
